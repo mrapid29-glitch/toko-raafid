@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toko Raafid</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Nunito', sans-serif; }
+    .product-card:hover { transform: translateY(-4px); }
+    .product-card { transition: all 0.3s ease; }
+    .flash-sale-timer { animation: pulse 1s ease-in-out infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+    .category-item:hover { transform: scale(1.05); }
+    .category-item { transition: all 0.2s ease; }
+    .btn-cart:hover { transform: scale(1.1); }
+    .btn-cart { transition: all 0.2s ease; }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app" class="h-full overflow-auto" style="background-color: #f5f5f5;"><!-- Header -->
+   <header style="background: linear-gradient(135deg, #ee4d2d 0%, #ff6633 100%);" class="sticky top-0 z-50 shadow-lg">
+    <div class="max-w-6xl mx-auto px-4 py-3"><!-- Top Bar -->
+     <div class="flex items-center justify-between mb-2 text-white text-sm">
+      <div class="flex gap-4"><span>📱 Download App</span> <span>🎁 Gratis Ongkir</span>
+      </div>
+      <div class="flex gap-4"><span>📞 Bantuan</span> <span>👤 Akun Saya</span>
+      </div>
+     </div><!-- Main Header -->
+     <div class="flex items-center gap-4">
+      <h1 id="store-name" class="text-2xl font-extrabold text-white whitespace-nowrap">🛒 Toko Raafid</h1><!-- Search Bar -->
+      <div class="flex-1 relative"><input type="text" placeholder="Cari produk di Toko Raafid..." class="w-full px-4 py-2 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-300"> <button class="absolute right-2 top-1/2 -translate-y-1/2 bg-orange-500 hover:bg-orange-600 text-white px-4 py-1 rounded-md transition"> 🔍 </button>
+      </div><!-- Cart -->
+      <div class="relative cursor-pointer btn-cart"><span class="text-3xl">🛒</span> <span id="cart-count" class="absolute -top-1 -right-1 bg-yellow-400 text-orange-700 text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
+      </div>
+     </div>
+    </div>
+   </header><!-- Banner Promo -->
+   <section class="relative overflow-hidden" style="background: linear-gradient(135deg, #ff6b35 0%, #ee4d2d 50%, #d73b1f 100%);">
+    <div class="max-w-6xl mx-auto px-4 py-8">
+     <div class="flex items-center justify-between">
+      <div class="text-white">
+       <p class="text-sm mb-1">⚡ FLASH SALE HARI INI</p>
+       <h2 id="promo-text" class="text-3xl md:text-4xl font-extrabold mb-2">DISKON HINGGA 70%!</h2>
+       <p id="tagline" class="text-lg opacity-90">Belanja Hemat, Kualitas Terjamin</p>
+       <div class="flex gap-2 mt-4">
+        <div class="bg-white/20 backdrop-blur px-3 py-2 rounded-lg text-center flash-sale-timer"><span class="text-2xl font-bold" id="hours">08</span>
+         <p class="text-xs">Jam</p>
+        </div>
+        <div class="bg-white/20 backdrop-blur px-3 py-2 rounded-lg text-center flash-sale-timer"><span class="text-2xl font-bold" id="minutes">45</span>
+         <p class="text-xs">Menit</p>
+        </div>
+        <div class="bg-white/20 backdrop-blur px-3 py-2 rounded-lg text-center flash-sale-timer"><span class="text-2xl font-bold" id="seconds">30</span>
+         <p class="text-xs">Detik</p>
+        </div>
+       </div>
+      </div>
+      <div class="hidden md:block text-8xl">
+       🎉
+      </div>
+     </div>
+    </div><!-- Decorative shapes -->
+    <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-white/10 rounded-full"></div>
+    <div class="absolute -top-10 -right-10 w-60 h-60 bg-white/10 rounded-full"></div>
+   </section><!-- Categories -->
+   <section class="max-w-6xl mx-auto px-4 py-6">
+    <h3 class="text-lg font-bold text-gray-800 mb-4">📂 Kategori Pilihan</h3>
+    <div class="grid grid-cols-4 md:grid-cols-8 gap-3">
+     <div class="category-item bg-white rounded-xl p-3 text-center shadow-sm cursor-pointer hover:shadow-md"><span class="text-3xl">👕</span>
+      <p class="text-xs mt-1 text-gray-600">Fashion</p>
+     </div>
+     <div class="category-item bg-white rounded-xl p-3 text-center shadow-sm cursor-pointer hover:shadow-md"><span class="text-3xl">📱</span>
+      <p class="text-xs mt-1 text-gray-600">Elektronik</p>
+     </div>
+     <div class="category-item bg-white rounded-xl p-3 text-center shadow-sm cursor-pointer hover:shadow-md"><span class="text-3xl">🏠</span>
+      <p class="text-xs mt-1 text-gray-600">Rumah</p>
+     </div>
+     <div class="category-item bg-white rounded-xl p-3 text-center shadow-sm cursor-pointer hover:shadow-md"><span class="text-3xl">💄</span>
+      <p class="text-xs mt-1 text-gray-600">Kecantikan</p>
+     </div>
+     <div class="category-item bg-white rounded-xl p-3 text-center shadow-sm cursor-pointer hover:shadow-md"><span class="text-3xl">🎮</span>
+      <p class="text-xs mt-1 text-gray-600">Gaming</p>
+     </div>
+     <div class="category-item bg-white rounded-xl p-3 text-center shadow-sm cursor-pointer hover:shadow-md"><span class="text-3xl">⚽</span>
+      <p class="text-xs mt-1 text-gray-600">Olahraga</p>
+     </div>
+     <div class="category-item bg-white rounded-xl p-3 text-center shadow-sm cursor-pointer hover:shadow-md"><span class="text-3xl">📚</span>
+      <p class="text-xs mt-1 text-gray-600">Buku</p>
+     </div>
+     <div class="category-item bg-white rounded-xl p-3 text-center shadow-sm cursor-pointer hover:shadow-md"><span class="text-3xl">🍼</span>
+      <p class="text-xs mt-1 text-gray-600">Bayi</p>
+     </div>
+    </div>
+   </section><!-- Flash Sale Products -->
+   <section class="max-w-6xl mx-auto px-4 py-4">
+    <div class="flex items-center justify-between mb-4">
+     <div class="flex items-center gap-2"><span class="text-2xl">⚡</span>
+      <h3 class="text-lg font-bold" style="color: #ee4d2d;">FLASH SALE</h3>
+     </div><a href="#" class="text-orange-500 hover:text-orange-600 text-sm font-semibold">Lihat Semua &gt;</a>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3" id="flash-sale-products"><!-- Products will be rendered here -->
+    </div>
+   </section><!-- Regular Products -->
+   <section class="max-w-6xl mx-auto px-4 py-6">
+    <h3 class="text-lg font-bold text-gray-800 mb-4">🛍️ Produk Terlaris</h3>
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3" id="regular-products"><!-- Products will be rendered here -->
+    </div>
+   </section><!-- Benefits -->
+   <section style="background-color: #fff5f0;" class="py-6">
+    <div class="max-w-6xl mx-auto px-4">
+     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="flex items-center gap-3 bg-white rounded-lg p-4 shadow-sm"><span class="text-3xl">🚚</span>
+       <div>
+        <p class="font-bold text-gray-800">Gratis Ongkir</p>
+        <p class="text-xs text-gray-500">Min. belanja Rp50rb</p>
+       </div>
+      </div>
+      <div class="flex items-center gap-3 bg-white rounded-lg p-4 shadow-sm"><span class="text-3xl">✅</span>
+       <div>
+        <p class="font-bold text-gray-800">100% Original</p>
+        <p class="text-xs text-gray-500">Produk asli bergaransi</p>
+       </div>
+      </div>
+      <div class="flex items-center gap-3 bg-white rounded-lg p-4 shadow-sm"><span class="text-3xl">🔄</span>
+       <div>
+        <p class="font-bold text-gray-800">Mudah Retur</p>
+        <p class="text-xs text-gray-500">7 hari pengembalian</p>
+       </div>
+      </div>
+      <div class="flex items-center gap-3 bg-white rounded-lg p-4 shadow-sm"><span class="text-3xl">💳</span>
+       <div>
+        <p class="font-bold text-gray-800">Bayar Aman</p>
+        <p class="text-xs text-gray-500">Berbagai metode</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Footer -->
+   <footer style="background-color: #333;" class="text-white py-8">
+    <div class="max-w-6xl mx-auto px-4">
+     <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-6">
+      <div>
+       <h4 class="font-bold mb-3" id="footer-store-name">🛒 Toko Raafid</h4>
+       <p class="text-sm text-gray-400">Toko online terpercaya dengan produk berkualitas dan harga terjangkau.</p>
+      </div>
+      <div>
+       <h4 class="font-bold mb-3">Layanan</h4>
+       <ul class="text-sm text-gray-400 space-y-2">
+        <li class="hover:text-orange-400 cursor-pointer">Cara Belanja</li>
+        <li class="hover:text-orange-400 cursor-pointer">Pengiriman</li>
+        <li class="hover:text-orange-400 cursor-pointer">Pengembalian</li>
+       </ul>
+      </div>
+      <div>
+       <h4 class="font-bold mb-3">Tentang Kami</h4>
+       <ul class="text-sm text-gray-400 space-y-2">
+        <li class="hover:text-orange-400 cursor-pointer">Tentang Toko</li>
+        <li class="hover:text-orange-400 cursor-pointer">Karir</li>
+        <li class="hover:text-orange-400 cursor-pointer">Kontak</li>
+       </ul>
+      </div>
+      <div>
+       <h4 class="font-bold mb-3">Ikuti Kami</h4>
+       <div class="flex gap-3 text-2xl"><span class="cursor-pointer hover:scale-110 transition">📘</span> <span class="cursor-pointer hover:scale-110 transition">📸</span> <span class="cursor-pointer hover:scale-110 transition">🐦</span> <span class="cursor-pointer hover:scale-110 transition">📺</span>
+       </div>
+      </div>
+     </div>
+     <div class="border-t border-gray-700 pt-4 text-center text-sm text-gray-500">
+      <p>© 2024 Toko Raafid. All rights reserved.</p>
+     </div>
+    </div>
+   </footer><!-- Floating Chat Button --> <button onclick="toggleChat()" class="fixed bottom-6 right-6 w-14 h-14 rounded-full shadow-lg flex items-center justify-center text-2xl hover:scale-110 transition z-50" style="background-color: #ee4d2d;"> 💬 </button> <!-- Chat Modal -->
+   <div id="chat-modal" class="fixed bottom-24 right-6 w-80 bg-white rounded-2xl shadow-2xl hidden z-50 overflow-hidden">
+    <div class="p-4" style="background: linear-gradient(135deg, #ee4d2d 0%, #ff6633 100%);">
+     <div class="flex items-center gap-3">
+      <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-xl">
+       🛒
+      </div>
+      <div class="text-white">
+       <p class="font-bold">Toko Raafid</p>
+       <p class="text-xs opacity-80">Online • Balas dalam 5 menit</p>
+      </div>
+     </div>
+    </div>
+    <div class="p-4 h-48 overflow-y-auto bg-gray-50">
+     <div class="bg-white rounded-lg p-3 shadow-sm mb-2">
+      <p class="text-sm text-gray-700">Halo! 👋 Selamat datang di Toko Raafid. Ada yang bisa kami bantu?</p>
+     </div>
+    </div>
+    <div class="p-3 border-t">
+     <div class="flex gap-2"><input type="text" placeholder="Ketik pesan..." class="flex-1 px-3 py-2 border rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-orange-300"> <button class="w-10 h-10 rounded-full flex items-center justify-center text-white" style="background-color: #ee4d2d;">➤</button>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script>
+    // Default configuration
+    const defaultConfig = {
+      store_name: '🛒 Toko Raafid',
+      tagline: 'Belanja Hemat, Kualitas Terjamin',
+      promo_text: 'DISKON HINGGA 70%!',
+      primary_color: '#ee4d2d',
+      secondary_color: '#ffffff',
+      text_color: '#333333',
+      accent_color: '#ff6633',
+      background_color: '#f5f5f5',
+      font_family: 'Nunito',
+      font_size: 16
+    };
+
+    // Sample products data
+    const flashSaleProducts = [
+      { id: 1, name: 'Headphone Bluetooth Pro', price: 299000, originalPrice: 599000, sold: 1200, rating: 4.9, emoji: '🎧' },
+      { id: 2, name: 'Kaos Polos Premium', price: 79000, originalPrice: 150000, sold: 3500, rating: 4.8, emoji: '👕' },
+      { id: 3, name: 'Tas Ransel Anti Air', price: 189000, originalPrice: 350000, sold: 890, rating: 4.7, emoji: '🎒' },
+      { id: 4, name: 'Skincare Set Korea', price: 159000, originalPrice: 299000, sold: 2100, rating: 4.9, emoji: '✨' },
+      { id: 5, name: 'Mouse Gaming RGB', price: 149000, originalPrice: 280000, sold: 1500, rating: 4.8, emoji: '🖱️' }
+    ];
+
+    const regularProducts = [
+      { id: 6, name: 'Sepatu Sneakers Trendy', price: 359000, originalPrice: 450000, sold: 670, rating: 4.7, emoji: '👟' },
+      { id: 7, name: 'Jam Tangan Digital', price: 199000, originalPrice: 350000, sold: 980, rating: 4.6, emoji: '⌚' },
+      { id: 8, name: 'Powerbank 20000mAh', price: 249000, originalPrice: 400000, sold: 1100, rating: 4.8, emoji: '🔋' },
+      { id: 9, name: 'Dompet Kulit Asli', price: 179000, originalPrice: 299000, sold: 560, rating: 4.5, emoji: '👝' },
+      { id: 10, name: 'Kacamata Fashion UV', price: 89000, originalPrice: 180000, sold: 2300, rating: 4.7, emoji: '🕶️' },
+      { id: 11, name: 'Parfum Premium 100ml', price: 289000, originalPrice: 500000, sold: 890, rating: 4.9, emoji: '🧴' },
+      { id: 12, name: 'Celana Jogger Pria', price: 129000, originalPrice: 220000, sold: 1800, rating: 4.6, emoji: '👖' },
+      { id: 13, name: 'Ring Light Selfie', price: 99000, originalPrice: 180000, sold: 2500, rating: 4.7, emoji: '💡' },
+      { id: 14, name: 'Tumbler Stainless', price: 79000, originalPrice: 150000, sold: 3200, rating: 4.8, emoji: '🥤' },
+      { id: 15, name: 'Topi Baseball Unisex', price: 59000, originalPrice: 100000, sold: 4100, rating: 4.5, emoji: '🧢' }
+    ];
+
+    let cartCount = 0;
+
+    // Format price to Indonesian Rupiah
+    function formatPrice(price) {
+      return 'Rp' + price.toLocaleString('id-ID');
+    }
+
+    // Calculate discount percentage
+    function calcDiscount(original, current) {
+      return Math.round((1 - current / original) * 100);
+    }
+
+    // Render product card
+    function renderProductCard(product, isFlashSale = false) {
+      const discount = calcDiscount(product.originalPrice, product.price);
+      return `
+        <div class="product-card bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg cursor-pointer">
+          <div class="relative">
+            <div class="h-32 md:h-40 flex items-center justify-center text-6xl" style="background: linear-gradient(135deg, #fff5f0 0%, #ffe8e0 100%);">
+              ${product.emoji}
+            </div>
+            ${isFlashSale ? `<span class="absolute top-2 left-2 bg-yellow-400 text-orange-700 text-xs font-bold px-2 py-1 rounded">⚡ -${discount}%</span>` : `<span class="absolute top-2 left-2 text-xs font-bold px-2 py-1 rounded" style="background-color: #ee4d2d; color: white;">-${discount}%</span>`}
+          </div>
+          <div class="p-3">
+            <h4 class="text-sm font-semibold text-gray-800 line-clamp-2 mb-2" style="min-height: 40px;">${product.name}</h4>
+            <p class="font-bold" style="color: #ee4d2d;">${formatPrice(product.price)}</p>
+            <p class="text-xs text-gray-400 line-through">${formatPrice(product.originalPrice)}</p>
+            <div class="flex items-center justify-between mt-2">
+              <div class="flex items-center gap-1">
+                <span class="text-yellow-400 text-xs">⭐</span>
+                <span class="text-xs text-gray-500">${product.rating}</span>
+              </div>
+              <span class="text-xs text-gray-400">Terjual ${product.sold > 1000 ? (product.sold/1000).toFixed(1) + 'rb' : product.sold}</span>
+            </div>
+            <button onclick="addToCart(event, ${product.id})" class="w-full mt-3 py-2 rounded-lg text-white font-semibold text-sm hover:opacity-90 transition" style="background-color: #ee4d2d;">
+              + Keranjang
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    // Render all products
+    function renderProducts() {
+      document.getElementById('flash-sale-products').innerHTML = flashSaleProducts.map(p => renderProductCard(p, true)).join('');
+      document.getElementById('regular-products').innerHTML = regularProducts.map(p => renderProductCard(p, false)).join('');
+    }
+
+    // Add to cart function
+    function addToCart(event, productId) {
+      event.stopPropagation();
+      cartCount++;
+      document.getElementById('cart-count').textContent = cartCount;
+      
+      // Animation feedback
+      const btn = event.target;
+      btn.textContent = '✓ Ditambahkan';
+      btn.style.backgroundColor = '#10b981';
+      setTimeout(() => {
+        btn.textContent = '+ Keranjang';
+        btn.style.backgroundColor = '#ee4d2d';
+      }, 1000);
+    }
+
+    // Toggle chat modal
+    function toggleChat() {
+      const modal = document.getElementById('chat-modal');
+      modal.classList.toggle('hidden');
+    }
+
+    // Countdown timer
+    function updateTimer() {
+      const now = new Date();
+      const endOfDay = new Date();
+      endOfDay.setHours(23, 59, 59, 999);
+      const diff = endOfDay - now;
+      
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+      
+      document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+      document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+      document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+    }
+
+    // Initialize Element SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (config) => {
+          const storeName = config.store_name || defaultConfig.store_name;
+          const tagline = config.tagline || defaultConfig.tagline;
+          const promoText = config.promo_text || defaultConfig.promo_text;
+          const fontFamily = config.font_family || defaultConfig.font_family;
+          const fontSize = config.font_size || defaultConfig.font_size;
+          const primaryColor = config.primary_color || defaultConfig.primary_color;
+          const secondaryColor = config.secondary_color || defaultConfig.secondary_color;
+          const textColor = config.text_color || defaultConfig.text_color;
+          
+          // Update text content
+          document.getElementById('store-name').textContent = storeName;
+          document.getElementById('tagline').textContent = tagline;
+          document.getElementById('promo-text').textContent = promoText;
+          document.getElementById('footer-store-name').textContent = storeName;
+          
+          // Update font
+          document.body.style.fontFamily = `${fontFamily}, sans-serif`;
+          document.body.style.fontSize = `${fontSize}px`;
+        },
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            {
+              get: () => config.primary_color || defaultConfig.primary_color,
+              set: (value) => { config.primary_color = value; window.elementSdk.setConfig({ primary_color: value }); }
+            },
+            {
+              get: () => config.secondary_color || defaultConfig.secondary_color,
+              set: (value) => { config.secondary_color = value; window.elementSdk.setConfig({ secondary_color: value }); }
+            },
+            {
+              get: () => config.text_color || defaultConfig.text_color,
+              set: (value) => { config.text_color = value; window.elementSdk.setConfig({ text_color: value }); }
+            }
+          ],
+          borderables: [],
+          fontEditable: {
+            get: () => config.font_family || defaultConfig.font_family,
+            set: (value) => { config.font_family = value; window.elementSdk.setConfig({ font_family: value }); }
+          },
+          fontSizeable: {
+            get: () => config.font_size || defaultConfig.font_size,
+            set: (value) => { config.font_size = value; window.elementSdk.setConfig({ font_size: value }); }
+          }
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ['store_name', config.store_name || defaultConfig.store_name],
+          ['tagline', config.tagline || defaultConfig.tagline],
+          ['promo_text', config.promo_text || defaultConfig.promo_text]
+        ])
+      });
+    }
+
+    // Initialize
+    renderProducts();
+    updateTimer();
+    setInterval(updateTimer, 1000);
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d3b98c7533f4083',t:'MTc3MjA2ODU4My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
